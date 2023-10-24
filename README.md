@@ -1,4 +1,4 @@
-An implementation of a Tavern using Design Driven Development concepts in Go.
+An implementation of a Tavern using Domain Driven Development concepts in Go.
 - Entity;
 - Value Object;
 - Aggregate;
