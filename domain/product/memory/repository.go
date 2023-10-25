@@ -4,23 +4,22 @@ import (
 	"sync"
 
 	"github.com/google/uuid"
-	"github.com/vinimazzarolo/go-ddd/aggregate"
 	"github.com/vinimazzarolo/go-ddd/domain/product"
 )
 
 type MemoryProductRepository struct {
-	products map[uuid.UUID]aggregate.Product
+	products map[uuid.UUID]product.Product
 	sync.Mutex
 }
 
 func New() *MemoryProductRepository {
 	return &MemoryProductRepository{
-		products: make(map[uuid.UUID]aggregate.Product),
+		products: make(map[uuid.UUID]product.Product),
 	}
 }
 
-func (mpr *MemoryProductRepository) GetAll() ([]aggregate.Product, error) {
-	var products []aggregate.Product
+func (mpr *MemoryProductRepository) GetAll() ([]product.Product, error) {
+	var products []product.Product
 
 	for _, p := range mpr.products {
 		products = append(products, p)
@@ -29,15 +28,15 @@ func (mpr *MemoryProductRepository) GetAll() ([]aggregate.Product, error) {
 	return products, nil
 }
 
-func (mpr *MemoryProductRepository) GetByID(id uuid.UUID) (aggregate.Product, error) {
+func (mpr *MemoryProductRepository) GetByID(id uuid.UUID) (product.Product, error) {
 	if p, ok := mpr.products[id]; ok {
 		return p, nil
 	}
 
-	return aggregate.Product{}, product.ErrProductNotFound
+	return product.Product{}, product.ErrProductNotFound
 }
 
-func (mpr *MemoryProductRepository) Add(p aggregate.Product) error {
+func (mpr *MemoryProductRepository) Add(p product.Product) error {
 	mpr.Lock()
 	defer mpr.Unlock()
 
@@ -50,7 +49,7 @@ func (mpr *MemoryProductRepository) Add(p aggregate.Product) error {
 	return nil
 }
 
-func (mpr *MemoryProductRepository) Update(p aggregate.Product) error {
+func (mpr *MemoryProductRepository) Update(p product.Product) error {
 	mpr.Lock()
 	defer mpr.Unlock()
 

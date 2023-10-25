@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	"github.com/vinimazzarolo/go-ddd/aggregate"
 )
 
 var (
@@ -12,10 +11,10 @@ var (
 	ErrProductNotFound      = errors.New("the product was not found")
 )
 
-type ProductRepository interface {
-	GetAll() ([]aggregate.Product, error)
-	GetByID(id uuid.UUID) (aggregate.Product, error)
-	Add(p aggregate.Product) error
-	Update(p aggregate.Product) error
+type Repository interface {
+	GetAll() ([]Product, error)
+	GetByID(id uuid.UUID) (Product, error)
+	Add(p Product) error
+	Update(p Product) error
 	Delete(id uuid.UUID) error
 }

@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	"github.com/vinimazzarolo/go-ddd/aggregate"
 )
 
 var (
@@ -13,8 +12,8 @@ var (
 	ErrUpdateCustomer      = errors.New("failed to update the customer")
 )
 
-type CustomerRepository interface {
-	Get(uuid.UUID) (aggregate.Customer, error)
-	Add(aggregate.Customer) error
-	Update(aggregate.Customer) error
+type Repository interface {
+	Get(uuid.UUID) (Customer, error)
+	Add(Customer) error
+	Update(Customer) error
 }
